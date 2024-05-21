@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Watermarking Image App</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav>
+        <div class="logo">
+            <h1>Watermarking Image</h1>
+        </div>
+        <div class="btn-navigation">
+            <ul>
+                <li><a href="/" class="non-activate">Embed</a></li>
+                <li><a href="#" class="activate">Extract</a></li>
+            </ul>
+        </div>
+    </nav>
+    <main>
+        <div class="title-content">
+            <h2 class="black">Extract</h2><h2 class="blue">Image</h2>
+        </div>
+        <div class="container">
+            <div class="form">
+                <form action="/extract" method="post" enctype="multipart/form-data">
+                    <div class="form_control_group">
+                        <h3>Select Image</h3>
+                        <div class="form_control">
+                            <div class="input-file-extract">
+                                <input type="file" class="input-extract" name="image" id="image" accept="image" required>
+                                <div class="input-cover" id="show-image">
+                                    <img src="{{url_for('static', filename='image.png')}}" width="50" alt="icon">
+                                    <p style="font-weight: bold;">Drag and Drop Image or Click Here</p>
+                                    <p style="font-weight:200;">Upload Image From Device</p>
+                                </div>
+                            </div>
+                        </div>
+                        <h3>Masukkan Panjang Character dari Watermark</h3>                        
+                        <div class="form_control">
+                            <div class="input-wm-length">
+                                <label for="watermark-length">Watermark Length</label>
+                                <input type="text" class="watermark-length-input" name="watermark-length" id="watermark-length" required>
+                            </div>
+                        </div>                        
+                        <div class="button_group">
+                             <button class="process">PROCESS</button>
+                             <button class="clear" type="button" onclick="clearForm()">CLEAR</button>
+                        </div>
+                    </div>
+                    <div class="text_area_control">
+                        <h3>Result</h3>
+                        <div class="result">
+                            <p>{{extracted_watermark}}</p>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+    <script src="{{url_for('static', filename='script.js')}}"></script>
+    <script>
+        function clearForm() {
+            document.getElementById("image").value = ""; // Clear the selected image
+            document.getElementById("show-image").innerHTML = '<img src="image.png" width="50" alt="icon"><p style="font-weight: bold;">Drag and Drop Image or Click Here</p><p style="font-weight:200;">Upload Image From Device</p>'; // Reset the image preview
+            document.getElementById("result").src = ""; // Clear the result image
+        }
+    </script>
+</body>
+</html>
